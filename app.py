@@ -1,62 +1,88 @@
 # This application was made to implement a simple one player game of battleship
 # Written by Alex Olson
+import random
+from flask import *
 
-from flask import Flask  # From module flask import class Flask
-app = Flask(__name__)    # Construct an instance of Flask class for our webapp
+# Boolean checking for victory
+win = False
 
-@app.route('/')   # URL '/' to be handled by main() route handler
-def main():
+# Counter for number of turns
+turn = 0
+count = 10
+board = [[]]
+coords = (-1, -1)
 
-    import random
 
-    # Width and Height of the board
-    WIDTH, HEIGHT = 10, 10
+def make_board():
+    global board
+    board = [[0 for col in range(10)] for row in range(10)]
+    return board
 
-    # Variable containing the game board
-    board = [[0 for col in range(WIDTH)] for row in range(HEIGHT)]
 
-    # Coordinates of battleship on the game board
+def show_board():
+    for i in range(len(board)):
+        print(board[i])
+    print()
+
+
+def attack():
+    global win
+    x = int(input('Select x coordinate (0-9): '))
+    y = int(input('Select y coordinate (0-9): '))
+    aim = (x, y)
+    print("You shoot at " + str(aim))
+    if coords == (x, y):
+        print("You sunk the battleship!")
+        win = True
+        return win
+    else:
+        print("Miss!")
+        board[x][y] = -1
+
+
+def place_ship():
+    global win, coords
     battleship_x = random.randint(0, 10)
     battleship_y = random.randint(0, 10)
     coords = (battleship_x, battleship_y)
-
-    # Boolean checking for victory
-    win = False
-
-    # Counter for number of turns
-    turn = 0
-    count = 10
-
     print("Battleship located at: " + str(coords))
 
-    # Main game loop
+
+# Main game loop
+def main():
+    global turn
+    make_board()
+    place_ship()
     while not win:
-
-        for i in range(len(board)):
-            print(board[i])
-
+        show_board()
         print("Turns left: " + str((count - turn)))
-
         # Check if turns left
         if turn == count:
             print("Out of ammo, you lose!")
             quit()
+        attack()
+        turn += 1
 
-        # Get player input for x and y coords
-        x = int(input('Select x coordinate: '))
-        y = int(input('Select y coordinate: '))
-        aim = (x, y)
-        print("You shoot at " + str(aim))
 
-        if coords == (x, y):
-            print("You sunk the battleship!")
-            win = True
-            quit()
-        else:
-            print("Miss!")
-            board[x][y] = -1
-            turn += 1
-            print(board)
+app = Flask(__name__)
+
+
+@app.route('/')
+def root():
+    main()
+    return render_template('main.html', grid=board)
+
+
+@app.route('/calculate', methods=["POST"])
+def calculate():
+    global win, coords
+    win = attack()
+
+    if win:
+        return render_template('win.html', coords=coords)
+
+    return render_template('main.html', grid=board)
+
 
 
 
