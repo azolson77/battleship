@@ -88,5 +88,6 @@ def calculate():
 
 if __name__ == '__main__':  # Script executed directly?
     print("Hello World! Built with a Docker file.")
+    make_board()
     show_board()
     app.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)  # Launch built-in web server and run this Flask webapp
