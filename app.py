@@ -86,7 +86,6 @@ def calculate():
 
 
 if __name__ == '__main__':
-    global turn
     make_board()
     place_ship()
     while not win:
