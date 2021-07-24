@@ -5,7 +5,6 @@ RUN apk add --no-cache py3-pip \
 WORKDIR /app
 COPY . /app
 
-RUN pip3 --no-cache-dir install --upgrade pip setuptools wheel
 RUN pip3 --no-cache-dir install -r requirements.txt
 
 
