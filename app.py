@@ -69,14 +69,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    main()
+    place_ship()
     return render_template('main.html', board=board)
 
 
 @app.route('/calculate', methods=["POST"])
 def calculate():
     global win, coords
-    win = attack()
+    # win = attack()
 
     if win:
         return render_template('win.html', coords=coords)
