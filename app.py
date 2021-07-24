@@ -85,9 +85,17 @@ def calculate():
 
 
 
-if __name__ == '__main__':  # Script executed directly?
-    print("Hello World! Built with a Docker file.")
+if __name__ == '__main__':
+    global turn
     make_board()
     place_ship()
-    show_board()
+    while not win:
+        show_board()
+        print("Turns left: " + str((count - turn)))
+        # Check if turns left
+        if turn == count:
+            print("Out of ammo, you lose!")
+            quit()
+        attack()
+        turn += 1
     app.run(host="0.0.0.0", port=8080, debug=True,use_reloader=True)  # Launch built-in web server and run this Flask webapp
