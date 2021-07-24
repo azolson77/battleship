@@ -69,7 +69,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    place_ship()
     return render_template('main.html', board=board)
 
 
