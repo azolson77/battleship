@@ -70,7 +70,7 @@ app = Flask(__name__)
 @app.route('/')
 def root():
     # main()
-    return render_template('main.html', grid=board)
+    return render_template('main.html', board=board)
 
 
 @app.route('/calculate', methods=["POST"])
