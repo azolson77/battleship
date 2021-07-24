@@ -1,14 +1,14 @@
 <html lang="en">
 	<body>
-		<table>
-            {%for row in grid%}
-            <tr>
-                {%for item in row%}
-                <td>{{item}}</td>
+	    <table>
+                {%for row in board%}
+                <tr>
+                    {%for item in row%}
+                    <td>{{item}}</td>
+                    {%endfor%}
+                </tr>
                 {%endfor%}
-            </tr>
-            {%endfor%}
-        </table>
+            </table>
         <form action="/calculate" method="post">
             <input name="X" placeholder="input X">
             <input name="Y" placeholder="input Y">
