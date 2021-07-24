@@ -69,7 +69,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    # main()
+    main()
     return render_template('main.html', board=board)
 
 
