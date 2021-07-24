@@ -8,13 +8,12 @@ app = Flask(__name__)    # Construct an instance of Flask class for our webapp
 def main():
 
     import random
-    import numpy as np
 
     # Width and Height of the board
     WIDTH, HEIGHT = 10, 10
 
     # Variable containing the game board
-    board = np.zeros((WIDTH, HEIGHT))
+    board = [[0 for col in range(WIDTH)] for row in range(HEIGHT)]
 
     # Coordinates of battleship on the game board
     battleship_x = random.randint(0, 10)
@@ -32,7 +31,10 @@ def main():
 
     # Main game loop
     while not win:
-        print(board)
+
+        for i in range(len(board)):
+            print(board[i])
+
         print("Turns left: " + str((count - turn)))
 
         # Check if turns left
@@ -55,6 +57,7 @@ def main():
             board[x][y] = -1
             turn += 1
             print(board)
+
 
 
 if __name__ == '__main__':  # Script executed directly?
