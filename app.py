@@ -35,6 +35,8 @@ def attack(x, y):
     if coords == (x, y):
         win = True
         return win
+    else:
+        board[x][y] = -1
 
 
 app = Flask(__name__)
