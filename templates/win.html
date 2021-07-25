@@ -3,11 +3,8 @@
 		"YOU WON!!!"
 	</body>
 	<table>
-		{%for data in coords%}
 		<tr>
-			<td>X: {{data.X}}</td>
-			<td>Y: {{data.Y}}</td>
+			<td>You destroyed the ship at {{coords}}</td>
 		</tr>
-		{%endfor%}
 	</table>
 </html>
